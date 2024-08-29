@@ -1,0 +1,6 @@
+hw_templates/
+cse183_venv/
+test/
+.service
+__pycache__
+*.zip
