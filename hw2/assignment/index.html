@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2023 1040EZ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+</head>
+
+<body>
+
+    <header class="section">
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="#">
+                    <strong>2023 1040EZ</strong>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="section" id="app">
+        <div class="container">
+            <h1 class="title">2023 Simplified Tax Form</h1>
+            <div style="display: flex; justify-content: center;">
+                <table class="table is-striped is-fullwidth">
+                    <tr v-for="(item, row) in text" :key="row" :class="'row-' + (row + 1)">
+                        <td>
+                                <p v-if="row + 1 == 1">Income</p>
+                                <p v-else-if="row + 1 == 7">Payments, Credits, and Tax</p>
+                                <p v-else-if="row + 1 == 13">Refund</p>
+                                <p v-else-if="row + 1 == 14">Amount You Owe</p>
+                                <p v-else></p>
+                        </td>
+                        <td>
+                            <p v-if="row + 1 == 5">
+                                <strong>{{row + 1}}</strong>
+                                {{item}}
+                                <input type="checkbox" v-model="checked" @change="checkbox"/>
+                            </p>
+                            <p v-else><strong>{{row + 1}}</strong> {{item}}</p>
+                        </td>
+                        <td>
+                            <input v-if="row + 1 == 1 || row + 1 == 2 || row + 1 == 3"
+                            class="input is-small is-primary"
+                            type="text"
+                            :name="'value-' + (row + 1)"
+                            v-model="value[row]"
+                            @input="add('add-income')"
+                            />
+
+                            <input v-else-if="row + 1 == 7 || row + 1 == 8"
+                            class="input is-small is-primary"
+                            type="text"
+                            :name="'value-' + (row + 1)"
+                            v-model="value[row]"
+                            @input="add('add-credits')"
+                            />
+
+                            <input v-else-if="row + 1 == 11"
+                            class="input is-small is-primary"
+                            type="text"
+                            :name="'value-' + (row + 1)"
+                            v-model="value[row]"
+                            @input="add('add-tax')"
+                            />
+
+                            <input v-else-if="row + 1 == 4 || row + 1 == 5 || row + 1 == 6 || row + 1 == 9 || row + 1 == 10 || 
+                            row + 1 == 13 || row + 1 == 14" 
+                            class="input is-small is-primary" type="text" :name="'value-' + (row + 1)" v-model="value[row]" readonly
+                            />
+                            <input v-else class="input is-small is-primary" type="text" :name="'value-' + (row + 1)" v-model="value[row]"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <a href="">License BSD</a>.
+            </p>
+        </div>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.4.21/vue.global.min.js"></script>
+    <script src="js/index.js"></script>
+</body>
+
+</html>

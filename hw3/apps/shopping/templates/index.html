@@ -1,0 +1,67 @@
+[[extend 'layout.html']]
+
+<style>
+[v-cloak] {
+    display: none;
+}
+</style>
+
+
+<div class="section" id="app" v-cloak>
+    <!-- Put here your Vue.js template -->
+    <h1 class="title">Shopping List</h1>
+
+    <div class="container">
+        <table class="table is-fullwidth is-striped">
+            <tr class="add-row">
+                <td class="is-narrow">
+                    <i class="is-size-2 
+                    fa-solid 
+                    fa-plus-square 
+                    has-text-success 
+                    add-item 
+                    is-clickable" 
+                    @click="add_item"
+                    />
+                </td>
+                <td>
+                    <input class="input add-item" 
+                    type="text" 
+                    name="new_item"
+                    v-model="new_item"
+                    />
+                </td>
+                <td class="is-narrow"></td>
+            </tr>
+            <tr class="item-row" v-for="item in shopping_list">
+                <td class="check is-narrow">
+                    <input type="checkbox" v-model="item.purchased" @click="change_item(item.id)"/>
+                </td>
+                <td class="item">{{ item.item_name }}</td>
+                <!-- <td class="item">{{ item.id }}</td> -->
+                <td class="trash is-narrow">
+                    <i class="trash 
+                    has-text-danger 
+                    fa-solid 
+                    fa-trash-can
+                    is-clickable"
+                    @click="delete_item(item.id)"
+                    />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+[[block page_scripts]]
+<!-- Loads the index-specific js for Vue -->
+<script>
+    let load_data_url = "[[=XML(load_data_url)]]";
+    let add_data_url = "[[=XML(add_data_url)]]";
+    let change_item_url = "[[=XML(change_item_url)]]";
+    let delete_item_url = "[[=XML(delete_item_url)]]";
+    // Add other URLs here if you wish.
+</script>
+<script src="js/index.js"></script>
+[[end]]
